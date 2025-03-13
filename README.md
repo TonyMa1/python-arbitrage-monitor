@@ -18,7 +18,7 @@ This project is a Python application that monitors cryptocurrency prices across 
 
 ## Project Origin
 
-This project was developed as part of the MFIN7037 Quantitative Trading course in the Master of Financial Technology program at The University of Hong Kong (HKU) in 2024.
+This project was developed as part of the MFIN7037 Quantitative Trading course in the Master of Financial Technology program at The University of Hong Kong (HKU) in 2025.
 
 ## Requirements
 
@@ -43,7 +43,7 @@ It is strongly recommended to use a virtual environment to manage these dependen
 
 2.  **Create and Activate a Virtual Environment (Recommended):**
 
-    Using `venv` (recommended for Python 3.3+):
+    Using `venv` (recommended for Python 3.7+ , I use a python3.11.8 on my arm64 laptop):
 
     ```bash
     python3 -m venv venv  # Create the virtual environment
