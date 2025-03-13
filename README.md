@@ -54,6 +54,11 @@ It is strongly recommended to use a virtual environment to manage these dependen
 3.  **Install Dependencies:**
 
     ```bash
+    # Recommended: Use uv for faster, more reliable dependency installation
+    pip install uv
+    uv pip install -r requirements.txt
+    
+    # Alternative: Standard pip installation
     pip install -r requirements.txt
     ```
 
