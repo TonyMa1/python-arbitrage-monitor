@@ -124,46 +124,4 @@ Contributions are welcome! If you find a bug or have a feature request, please o
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
-
-**Key Changes in `README.md`:**
-
-*   **Specific Python Version:** Changed "Python 3.7+" to "Python 3.11.8 (Recommended)".
-*   **Exact Package Versions:**  Listed the specific package versions with `>=` (greater than or equal to) to ensure compatibility.
-*   **Virtual Environment Instructions:** Added a section strongly recommending the use of a virtual environment and providing instructions for creating and activating one using `venv`. This is crucial for isolating project dependencies.
-*   **`requirements.txt` Mention:**  Explicitly stated to use `pip install -r requirements.txt`.
-*  **Development Dependency:** Marked `textual-dev` and `textual-serve` as development dependencies.
-
-**Creating `requirements.txt`:**
-
-Now, create the `requirements.txt` file. The *best* way to do this is to create and activate a virtual environment, install your dependencies *within that environment*, and *then* generate the `requirements.txt` file. This ensures that the file accurately reflects the packages and versions used in your project.
-
-1.  **Create and Activate Virtual Environment (if you haven't already):**
-
-    ```bash
-    python3 -m venv venv  # Create
-    source venv/bin/activate  # Activate (macOS/Linux)
-    venv\Scripts\activate  # Activate (Windows)
-    ```
-
-2.  **Install Packages (within the activated environment):**
-
-    ```bash
-    pip install ccxt>=4.4.62 textual>=2.1.2 textual-dev>=1.7.0 textual-serve>=1.1.1 click
-    ```
-    (Note that `asyncio` is part of the Python standard library, so you don't need to install it separately.)
-
-3.  **Generate `requirements.txt`:**
-
-    ```bash
-    pip freeze > requirements.txt
-    ```
-    This command takes the output of `pip freeze` (which lists all installed packages and their versions in the *current* environment) and redirects it to a file named `requirements.txt`.
-
-4. **Add and Commit**
-```bash
-    git add README.md requirements.txt
-    git commit -m "Update README and add requirements.txt"
-    git push
-```
 
