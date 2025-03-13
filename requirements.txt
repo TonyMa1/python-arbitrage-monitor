@@ -1,0 +1,5 @@
+ccxt>=4.4.62
+textual>=2.1.2
+textual-dev>=1.7.0
+textual-serve>=1.1.1
+click
