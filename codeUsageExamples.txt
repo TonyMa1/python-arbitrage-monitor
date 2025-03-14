@@ -6,7 +6,7 @@ python main1.py --monitor-panel ticker --market-a binance.spot --market-b okx.sw
 
 2. Orderbook-Based Arbitrage Monitoring
    - Purpose: More detailed spread analysis using orderbook data for potential arbitrage opportunities
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b okx.spot --quote-currency USDT --topn 30
+python main1.py --monitor-panel orderbook --market-a binance.spot --market-b okx.spot --quote-currency USDT --topn 15
 
 3. Cross-Exchange Future Markets Comparison
    - Purpose: Compare futures markets between different exchanges
