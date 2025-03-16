@@ -4,13 +4,13 @@
 
 ## Description
 
-This project is a Python application that monitors cryptocurrency prices across two different exchanges (Market A and Market B) to identify potential arbitrage opportunities.  It uses the `ccxt.pro` library for real-time data streaming and provides a Textual-based user interface to display the top N arbitrage spreads. The monitor can track spreads based on either the last traded price (ticker) or the top bid/ask prices from the order book.
+This project is a Python application that monitors cryptocurrency prices across two different exchanges (Market A and Market B) to identify potential arbitrage opportunities. It uses the `ccxt.pro` library for real-time data streaming and provides a Textual-based user interface to display the top N arbitrage spreads. The monitor tracks spreads based on the last traded price (ticker).
 
 **Key Features:**
 
 *   **Real-time Monitoring:** Uses websockets to receive live price updates from exchanges.
 *   **Dual Exchange Support:** Monitors two exchanges simultaneously.
-*   **Ticker and Orderbook Spreads:** Calculates spreads using both last trade prices and order book data.
+*   **Ticker Spreads:** Calculates spreads using last trade prices.
 *   **Configurable:** Allows specifying exchanges, market types, quote currency, specific symbols, and the number of top spreads to display.
 *   **Textual UI:** Presents results in a user-friendly, interactive table.
 *   **Latency Measurement:** Displays the latency of data retrieval from each exchange.
@@ -67,14 +67,10 @@ It is strongly recommended to use a virtual environment to manage these dependen
 The script is run from the command line using `click`. Here's the basic usage:
 
 ```bash
-python main1.py --monitor-panel <panel_type> --market-a <market_a> --market-b <market_b> [options]
+python main1.py --market-a <market_a> --market-b <market_b> [options]
 ```
 
 **Options:**
-
-*   `--monitor-panel`:  Choose the monitoring mode (required):
-    *   `ticker`:  Uses the last traded price to calculate spreads.
-    *   `orderbook`: Uses the top bid/ask prices from the order book.
 
 *   `--market-a`:  Specify the first exchange and market type (required).  Format: `exchange.type[.subtype]`.  Examples:
     *   `binance.spot`
@@ -95,13 +91,7 @@ python main1.py --monitor-panel <panel_type> --market-a <market_a> --market-b <m
 To monitor ticker spreads between Binance spot and OKX linear swaps for the top 10 pairs with USDT as the quote currency:
 
 ```bash
-python main1.py --monitor-panel ticker --market-a binance.spot --market-b okx.swap.linear --topn 10
-```
-
-To monitor orderbook spreads for only BTC-USDT and ETH-USDT between Bybit spot and FTX spot:
-
-```bash
-python main1.py --monitor-panel orderbook --market-a bybit.spot --market-b ftx.spot --symbols BTC-USDT,ETH-USDT
+python main1.py --market-a binance.spot --market-b okx.swap.linear --topn 10
 ```
 
 ## How it Works (Technical Details)
@@ -112,11 +102,11 @@ This section provides a more in-depth explanation of the code's architecture and
 
 2.  **Market Loading:**  The `load_markets()` method retrieves market data from both exchanges and filters trading pairs based on the provided `quote_currency` or `symbols`.  It builds an internal `symbol_map` to efficiently look up pairs for spread calculations.
 
-3.  **Data Monitoring:** The `TickerSpreadMonitor` and `OrderbookSpreadMonitor` classes implement the actual monitoring logic.  They use `watch_tickers` or `watch_order_book_for_symbols` to subscribe to real-time data streams from the exchanges.
+3.  **Data Monitoring:** The `TickerSpreadMonitor` class implements the actual monitoring logic. It uses `watch_tickers` to subscribe to real-time data streams from the exchanges.
 
-4.  **Spread Calculation:**  The `process_ticker` and `process_order_book` methods receive data from the exchanges.  They update the `pair_data` dictionary with the latest prices and timestamps.  The `calculate_spread` method (which uses a thread pool for CPU-bound calculations) then computes the spread percentage.
+4.  **Spread Calculation:**  The `process_ticker` method receives data from the exchanges. It updates the `pair_data` dictionary with the latest prices and timestamps. The `calculate_spread` method (which uses a thread pool for CPU-bound calculations) then computes the spread percentage.
 
-5.  **Textual UI:** The `MonitorApp` class (using the `textual` library) creates a dynamic table to display the top N arbitrage opportunities, sorted by spread percentage.  The `TickerSpreadPanel` and `OrderbookSpreadPanel` classes define the specific table layouts and data formatting.
+5.  **Textual UI:** The `MonitorApp` class (using the `textual` library) creates a dynamic table to display the top N arbitrage opportunities, sorted by spread percentage. The `TickerSpreadPanel` class defines the specific table layout and data formatting.
 
 6.  **Latency Handling:**  The `sync_time` method periodically synchronizes the local clock with the exchange servers to estimate latency.  This latency is used to calculate more accurate elapsed times for price updates.
 

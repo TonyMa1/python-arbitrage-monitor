@@ -1,56 +1,32 @@
-Here are 12 different usage scenarios for main.py, each highlighting a different feature or use case:
+Here are different usage scenarios for main.py, each highlighting a different feature or use case:
 
 1. Basic Ticker Monitoring (Default Setup)
    - Purpose: Monitor price differences using ticker data between Binance spot and OKX linear swap
-python main1.py --monitor-panel ticker --market-a binance.spot --market-b okx.swap.linear
-
-2. Orderbook-Based Arbitrage Monitoring
-   - Purpose: More detailed spread analysis using orderbook data for potential arbitrage opportunities
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b okx.spot --quote-currency USDT --topn 15
+python main1.py --market-a binance.spot --market-b okx.swap.linear
 
 3. Cross-Exchange Future Markets Comparison
    - Purpose: Compare futures markets between different exchanges
-python main1.py --monitor-panel ticker --market-a binance.future.linear --market-b okx.future.linear --quote-currency USDT --topn 15
-
-4. Specific Cryptocurrency Pair Monitoring
-   - Purpose: Focus on specific high-value trading pairs
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b okx.spot --symbols BTC-USDT,ETH-USDT,SOL-USDT
+python main1.py --market-a binance.future.linear --market-b okx.future.linear --quote-currency USDT --topn 15
 
 5. Inverse Swap Market Analysis
    - Purpose: Monitor USD-margined (inverse) swap markets
-python main1.py --monitor-panel ticker --market-a binance.swap.inverse --market-b okx.swap.inverse --symbols BTC-USD,ETH-USD
-
-6. Cross-Market Type Analysis
-   - Purpose: Compare spot vs futures prices for potential basis trading
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b binance.future.linear --quote-currency USDT --topn 25
+python main1.py --market-a binance.swap.inverse --market-b okx.swap.inverse --symbols BTC-USD,ETH-USD
 
 7. Alternative Quote Currency Monitoring
    - Purpose: Monitor markets with different quote currency (e.g., BTC pairs)
-python main1.py --monitor-panel ticker --market-a binance.spot --market-b okx.spot --quote-currency BTC --topn 20
-
-8. High-Frequency Orderbook Monitoring
-   - Purpose: Monitor top 5 spreads for quick arbitrage opportunities
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b okx.spot --quote-currency USDT --topn 5
+python main1.py --market-a binance.spot --market-b okx.spot --quote-currency BTC --topn 20
 
 9. Multi-Stablecoin Market Analysis
    - Purpose: Monitor spreads between different stablecoin pairs
-python main1.py --monitor-panel ticker --market-a binance.spot --market-b okx.spot --symbols USDC-USDT,BUSD-USDT,DAI-USDT
-
-10. Spot-Perpetual Arbitrage Monitoring
-    - Purpose: Monitor price differences between spot and perpetual futures
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b binance.swap.linear --symbols BTC-USDT,ETH-USDT --topn 10
+python main1.py --market-a binance.spot --market-b okx.spot --symbols USDC-USDT,BUSD-USDT,DAI-USDT
 
 11. Cross-Platform DeFi Token Analysis
     - Purpose: Monitor DeFi token prices across exchanges
-python main1.py --monitor-panel ticker --market-a binance.spot --market-b okx.spot --symbols UNI-USDT,AAVE-USDT,LINK-USDT,SNX-USDT
-
-12. Large Market Depth Analysis
-    - Purpose: Monitor larger market depths for institutional-grade trading
-python main1.py --monitor-panel orderbook --market-a binance.spot --market-b okx.spot --quote-currency USDT --symbols BTC-USDT,ETH-USDT --topn 50
+python main1.py --market-a binance.spot --market-b okx.spot --symbols UNI-USDT,AAVE-USDT,LINK-USDT,SNX-USDT
 
 Each scenario above serves a different trading or analysis purpose:
-- Scenarios 1-2 focus on different data types (ticker vs orderbook)
-- Scenarios 3-5 focus on different market types (spot, futures, inverse)
-- Scenarios 6-8 focus on different trading strategies (basis, HFT)
-- Scenarios 9-12 focus on different asset types and market depths
+- Scenario 1 focuses on ticker data
+- Scenarios 3 and 5 focus on different market types (futures, inverse)
+- Scenario 7 focuses on alternative quote currencies
+- Scenarios 9 and 11 focus on different asset types
 
