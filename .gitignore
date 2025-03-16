@@ -14,3 +14,11 @@ env/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Application logs
+*.log
+arbitrage_monitor.log
+
+# Temporary files and folders
+temp/
+tmp/
