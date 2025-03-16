@@ -5,7 +5,7 @@ import click
 from textual.app import App, ComposeResult
 from textual.widgets import DataTable, Header, Footer, Static, Log
 from textual.containers import ScrollableContainer
-from spread2 import TickerSpreadMonitor
+from spread import TickerSpreadMonitor
 
 # Add this before any async code runs
 if sys.platform == 'win32':
