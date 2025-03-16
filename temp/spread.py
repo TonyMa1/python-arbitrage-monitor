@@ -33,22 +33,11 @@ class SpreadMonitorBase:
     
     def __init__(
         self, 
-        market_a: str, 
-        market_b: str, 
+        market_a, 
+        market_b, 
         symbols: Set[str] = None, 
         quote_currency: str = "USDT"
     ):
-        """Initialize the spread monitor with exchange configurations.
-        
-        Args:
-            market_a: First market in format 'exchange.type[.subtype]'
-            market_b: Second market in format 'exchange.type[.subtype]'
-            symbols: Optional set of specific symbols to monitor
-            quote_currency: Quote currency to filter pairs (e.g., 'USDT')
-            
-        The monitor connects to two exchanges and tracks price differences
-        between them for potential arbitrage opportunities.
-        """
         self.exchange_a_name, self.type_a, self.subtype_a = self.parse_market(market_a)
         self.exchange_b_name, self.type_b, self.subtype_b = self.parse_market(market_b)
 
@@ -111,19 +100,7 @@ class SpreadMonitorBase:
         )
 
         def format_markets(markets: Dict, type_: str, subtype: str) -> Dict[Tuple[str, str], List[str]]:
-            """Filter markets by type, subtype and quote currency.
-            
-            Args:
-                markets: Dictionary of markets from the exchange
-                type_: Market type (e.g., 'spot', 'future', 'swap')
-                subtype: Market subtype (e.g., 'linear', 'inverse')
-                
-            Returns:
-                Dictionary mapping (base, quote) currency pairs to symbols
-                
-            Filters exchange markets to include only those matching the specified
-            type/subtype and quote currency criteria.
-            """
+            """Filter markets by type, subtype and quote currency."""
             new_markets = defaultdict(list)
             for m in markets.values():
                 if (
@@ -209,18 +186,7 @@ class SpreadMonitorBase:
         ])
 
     async def stop(self):
-        """Stop all monitoring tasks and clean up resources.
-        
-        This method gracefully shuts down all running tasks:
-        1. Sets running flag to False to signal tasks to exit
-        2. Cancels all pending tasks
-        3. Closes exchange connections
-        4. Shuts down the thread executor
-        
-        Handles exceptions during shutdown to ensure a clean exit.
-        """
-        import logging  # Import at top level is preferred, but keeping here for minimal changes
-        
+        """Stop all monitoring tasks and clean up resources."""
         self.running = False
         for task in self.monitor_tasks:
             if not task.done():
@@ -229,6 +195,7 @@ class SpreadMonitorBase:
         try:
             await asyncio.gather(*self.monitor_tasks, return_exceptions=True)
         except (asyncio.CancelledError, Exception) as e:
+            import logging
             logging.debug(f"Task cancellation during stop: {e}")
             
         try:
@@ -237,6 +204,7 @@ class SpreadMonitorBase:
             if hasattr(self, 'exchange_b') and self.exchange_b:
                 await self.exchange_b.close()
         except Exception as e:
+            import logging
             logging.debug(f"Error closing exchanges: {e}")
             
         if hasattr(self, '_executor'):
@@ -247,17 +215,7 @@ class TickerSpreadMonitor(SpreadMonitorBase):
     """Monitors price spreads between exchanges using ticker data."""
     
     async def monitor(self, exchange: ccxtpro.Exchange, index: str, symbols: List[str]):
-        """Watch and process ticker updates for specified symbols.
-        
-        Args:
-            exchange: The CCXT exchange instance to monitor
-            index: Exchange identifier ('a' or 'b')
-            symbols: List of trading symbols to watch
-            
-        Continuously watches for ticker updates from the exchange and processes
-        each update to calculate arbitrage opportunities. Implements error handling
-        with exponential backoff for network issues.
-        """
+        """Watch and process ticker updates for specified symbols."""
         exchange_name = exchange.name.lower()
         while self.running:
             try:
@@ -283,14 +241,7 @@ class TickerSpreadMonitor(SpreadMonitorBase):
     async def process_ticker(
         self, symbol: str, ticker: Dict, index: str, time_diff: float
     ):
-        """Process a ticker update and update pair data.
-        
-        Args:
-            symbol: The trading symbol/ticker name
-            ticker: Dictionary containing ticker data from exchange
-            index: Exchange identifier ('a' or 'b')
-            time_diff: Time difference adjustment between local and exchange time
-        """
+        """Process a ticker update and update pair data."""
         if symbol not in self.symbol_map[index]:
             return
 
@@ -311,23 +262,12 @@ class TickerSpreadMonitor(SpreadMonitorBase):
             await self.calculate_spread(pair_name)
 
     async def calculate_spread(self, pair_key: str):
-        """Calculate price spread in a separate thread to avoid blocking.
-        
-        Args:
-            pair_key: Identifier for the trading pair
-        """
+        """Calculate price spread in a separate thread to avoid blocking."""
         loop = asyncio.get_running_loop()
         await loop.run_in_executor(self._executor, self._calculate_spread_sync, pair_key)
 
     def _calculate_spread_sync(self, pair_key: str):
-        """Calculate absolute and percentage price spread between exchanges.
-        
-        Args:
-            pair_key: Identifier for the trading pair
-            
-        Calculates both absolute spread (difference in price) and percentage spread
-        (difference relative to the minimum price) between exchanges.
-        """
+        """Calculate absolute and percentage price spread between exchanges."""
         data = self.pair_data[pair_key]
         try:
             if data["price_a"] and data["price_b"]:

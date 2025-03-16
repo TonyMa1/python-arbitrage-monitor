@@ -59,19 +59,8 @@ def get_config() -> Dict[str, Any]:
     return config
 
 
-def format_significant_figures(value: float, sig_figs: int = 3) -> str:
-    """Format number with specified significant figures.
-    
-    Args:
-        value: The float value to format
-        sig_figs: Number of significant figures to maintain
-        
-    Returns:
-        Formatted string representation with appropriate decimal places
-        
-    Handles both values >= 1 and values < 1 differently to maintain
-    the requested number of significant digits.
-    """
+def format_significant_figures(value, sig_figs=3):
+    """Format number with specified significant figures."""
     if value == 0:
         return "0.000"
     
