@@ -67,7 +67,7 @@ It is strongly recommended to use a virtual environment to manage these dependen
 The script is run from the command line using `click`. Here's the basic usage:
 
 ```bash
-python main1.py --market-a <market_a> --market-b <market_b> [options]
+python main.py --market-a <market_a> --market-b <market_b> [options]
 ```
 
 **Options:**
@@ -91,7 +91,7 @@ python main1.py --market-a <market_a> --market-b <market_b> [options]
 To monitor ticker spreads between Binance spot and OKX linear swaps for the top 10 pairs with USDT as the quote currency:
 
 ```bash
-python main1.py --market-a binance.spot --market-b okx.swap.linear --topn 10
+python main.py --market-a binance.spot --market-b okx.swap.linear --topn 10
 ```
 
 ## How it Works (Technical Details)
