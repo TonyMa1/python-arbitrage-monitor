@@ -8,27 +8,25 @@ python main.py --market-a binance.spot --market-b okx.swap.linear
    - Purpose: Compare futures markets between different exchanges
 python main.py --market-a binance.future.linear --market-b okx.future.linear --quote-currency USDT --topn 15
 
-3. Inverse Swap Market Analysis
-   - Purpose: Monitor USD-margined (inverse) swap markets
-python main.py --market-a binance.swap.inverse --market-b okx.swap.inverse --symbols BTC-USD,ETH-USD
 
-4. Alternative Quote Currency Monitoring
+
+3. Alternative Quote Currency Monitoring
    - Purpose: Monitor markets with different quote currency (e.g., BTC pairs)
 python main.py --market-a binance.spot --market-b okx.spot --quote-currency BTC --topn 20
 
-5. Multi-Stablecoin Market Analysis
+4. Multi-Stablecoin Market Analysis
    - Purpose: Monitor spreads between different stablecoin pairs
 python main.py --market-a binance.spot --market-b okx.spot --symbols USDC-USDT,BUSD-USDT,DAI-USDT
 
-6. Cross-Platform DeFi Token Analysis
+5. Cross-Platform DeFi Token Analysis
    - Purpose: Monitor DeFi token prices across exchanges
 python main.py --market-a binance.spot --market-b okx.spot --symbols UNI-USDT,AAVE-USDT,LINK-USDT,SNX-USDT
 
 Each scenario above serves a different trading or analysis purpose:
 - Scenario 1 focuses on ticker data
-- Scenarios 2 and 3 focus on different market types (futures, inverse)
-- Scenario 4 focuses on alternative quote currencies
-- Scenarios 5 and 6 focus on different asset types
+- Scenarios 2 focus on different market type
+- Scenario 3 focuses on alternative quote currencies
+- Scenarios 4 and 5 focus on different asset types
 
 
 
