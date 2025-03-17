@@ -341,6 +341,7 @@ class TickerSpreadMonitor(SpreadMonitorBase):
                 "pair_name": pair_name,
                 "spread": 0.0,
                 "spread_pct": 0.0,
+                "spread_after_fees_pct": 0.0,
                 "price_a": 0.0,
                 "price_b": 0.0,
                 "elapsed_time_a": 0.0,
@@ -374,6 +375,9 @@ class TickerSpreadMonitor(SpreadMonitorBase):
                 spread = abs(data["price_a"] - data["price_b"])
                 data["spread"] = spread
                 data["spread_pct"] = spread / min_price if min_price != 0 else 0
+                # Calculate spread after fees and slippage (0.4% deduction)
+                data["spread_after_fees_pct"] = max(0, data["spread_pct"] - 0.004)
         except TypeError as e:
             print(f"Calculate spread error for {pair_key}: {e}")
             data["spread_pct"] = 0
+            data["spread_after_fees_pct"] = 0

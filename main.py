@@ -106,7 +106,7 @@ class TickerSpreadPanel(Static):
         table = self.query_one(DataTable)
         try:
             # Display loading status while fetching market data
-            table.add_row("Loading markets...", "", "", "", "", "", "", "")
+            table.add_row("Loading markets...", "", "", "", "", "", "", "", "")
             await monitor.load_markets()
             table.clear()
             
@@ -129,6 +129,7 @@ class TickerSpreadPanel(Static):
                                 i,
                                 row['pair_name'],
                                 f'{(row["spread_pct"] * 100):.4f}%',
+                                f'{(row["spread_after_fees_pct"] * 100):.4f}%',
                                 format_significant_figures(row['spread']),
                                 format_significant_figures(row['price_a']),
                                 format_significant_figures(row['price_b']),
@@ -155,6 +156,7 @@ class TickerSpreadPanel(Static):
             "No.",
             "Pair",
             "Spread (%)",
+            "Spread After Fees (%)",
             "Spread",
             "Last Price (A)",
             "Last Price (B)",
