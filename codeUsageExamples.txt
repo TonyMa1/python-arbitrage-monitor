@@ -9,7 +9,6 @@ python main.py --market-a binance.spot --market-b okx.swap.linear
 python main.py --market-a binance.future.linear --market-b okx.future.linear --quote-currency USDT --topn 15
 
 
-
 3. Alternative Quote Currency Monitoring
    - Purpose: Monitor markets with different quote currency (e.g., BTC pairs)
 python main.py --market-a binance.spot --market-b okx.spot --quote-currency BTC --topn 20
@@ -24,7 +23,7 @@ python main.py --market-a binance.spot --market-b okx.spot --symbols UNI-USDT,AA
 
 Each scenario above serves a different trading or analysis purpose:
 - Scenario 1 focuses on ticker data
-- Scenarios 2 focus on different market type
+- Scenarios 2 focuses on different market type
 - Scenario 3 focuses on alternative quote currencies
 - Scenarios 4 and 5 focus on different asset types
 

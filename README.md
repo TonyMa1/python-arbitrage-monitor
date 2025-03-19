@@ -1,5 +1,6 @@
 # Python Arbitrage Monitor
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/TonyMa1/python-arbitrage-monitor/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![CCXT](https://img.shields.io/badge/ccxt-4.4.62+-green.svg)](https://github.com/ccxt/ccxt)
